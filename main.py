@@ -1,24 +1,17 @@
-
+import os
 import webapp2
 
-form = """
-<form action="/testHandler">
-    <input name="q">
-    <input type="submit">
-</from>
-"""
+class Handler(webapp2.RequestHandler):
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
 
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        # self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write(form)
 
-class testHandler(webapp2.RequestHandler):
+class MainPage(Handler):
     def get(self):
-        q=self.request.get('q')
-        self.response.write(q)
+        self.write("hello udacity")
+
+
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
-    ('/testHandler' , testHandler)
-], debug=True)
+    ('/', MainPage)
+    ], debug=True)
