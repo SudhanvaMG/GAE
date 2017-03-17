@@ -26,7 +26,18 @@ class MainPage(Handler):
         items = self.request.get_all("name")
         self.render("shoppingList.html", items=items)
 
+class Rot(Handler):
+    def get(self):
+        crypt = ''
+        self.render("rot13.html")
+    def post(self):
+        crypt = ''
+        data = self.request.get('data')
+        if data :
+            crypt = data.encode('rot13')
+        self.render("rot13.html", crypt = crypt)
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', MainPage),
+    ('/rot13', Rot)
     ], debug=True)
